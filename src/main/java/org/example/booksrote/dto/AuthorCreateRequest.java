@@ -2,8 +2,6 @@ package org.example.booksrote.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import java.time.LocalDate;
 import java.util.Set;
 
 @Data

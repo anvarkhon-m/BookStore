@@ -10,7 +10,6 @@ import org.example.booksrote.entity.Author;
 import org.example.booksrote.entity.Book;
 import org.example.booksrote.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 import java.util.stream.Collectors;

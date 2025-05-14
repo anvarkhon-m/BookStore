@@ -3,16 +3,10 @@ package org.example.booksrote.service;
 import lombok.RequiredArgsConstructor;
 import org.example.booksrote.dto.AddressCreateRequest;
 import org.example.booksrote.dto.AddressResponse;
-import org.example.booksrote.dto.AuthorResponse;
-import org.example.booksrote.dto.BookResponse;
 import org.example.booksrote.entity.Address;
-import org.example.booksrote.entity.Author;
-import org.example.booksrote.entity.Book;
 import org.example.booksrote.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
