@@ -10,5 +10,6 @@ import java.util.Set;
 public class AuthorCreateRequest {
     @NotBlank
     private String name;
+    private AddressCreateRequest address;
     private Set<Long> authors;
 }

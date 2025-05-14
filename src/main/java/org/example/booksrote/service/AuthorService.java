@@ -1,9 +1,11 @@
 package org.example.booksrote.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.booksrote.dto.AddressResponse;
 import org.example.booksrote.dto.AuthorCreateRequest;
 import org.example.booksrote.dto.AuthorResponse;
 import org.example.booksrote.dto.BookResponse;
+import org.example.booksrote.entity.Address;
 import org.example.booksrote.entity.Author;
 import org.example.booksrote.entity.Book;
 import org.example.booksrote.repository.AuthorRepository;
@@ -17,10 +19,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthorService {
     private final AuthorRepository repository;
+    private final AddressService addressService;
 
     public void create(AuthorCreateRequest request) {
+        Address address = addressService.create(request.getAddress());
+
         Author author = new Author();
         author.setName(request.getName());
+        author.setAddress(address);
+
         repository.save(author);
     }
 
@@ -34,6 +41,14 @@ public class AuthorService {
                     AuthorResponse response = new AuthorResponse();
                     response.setId(author.getId());
                     response.setName(author.getName());
+
+                    AddressResponse addressResponse = new AddressResponse();
+                    addressResponse.setId(author.getAddress().getId());
+                    addressResponse.setStreet(author.getAddress().getStreet());
+                    addressResponse.setCity(author.getAddress().getCity());
+                    addressResponse.setCountry(author.getAddress().getCountry());
+
+                    response.setAddress(addressResponse);
                     Set<Book> books = author.getBooks();
 
                     response.setBooks(books.stream().map(book -> {
@@ -45,6 +60,7 @@ public class AuthorService {
                         bookResponse.setAuthors(null);
                         return bookResponse;
                     }).collect(Collectors.toSet()));
+
                     return response;
                 })
                 .orElseThrow(() -> new RuntimeException("Author is not found."));

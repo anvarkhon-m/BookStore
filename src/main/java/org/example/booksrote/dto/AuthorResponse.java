@@ -10,5 +10,6 @@ import java.util.Set;
 public class AuthorResponse {
     private Long id;
     private String name;
+    private AddressResponse address;
     private Set<BookResponse> books;
 }

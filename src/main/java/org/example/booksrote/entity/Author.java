@@ -13,6 +13,9 @@ import java.util.Set;
 @Data
 public class Author extends BaseEntity{
     private String name;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 }
