@@ -5,18 +5,9 @@ import org.example.booksrote.dto.AddressResponse;
 import org.example.booksrote.entity.Address;
 
 public class AddressMapper {
-    private static AddressMapper instance;
-
     private AddressMapper() {}
 
-    public static AddressMapper getInstance() {
-        if (instance == null) {
-            instance = new AddressMapper();
-        }
-        return instance;
-    }
-
-    public AddressResponse fromAddress(Address address) {
+    public static AddressResponse fromAddress(Address address) {
         AddressResponse addressResponse = new AddressResponse();
         addressResponse.setId(address.getId());
         addressResponse.setStreet(address.getStreet());
@@ -25,7 +16,7 @@ public class AddressMapper {
         return addressResponse;
     }
 
-    public Address toAddress(AddressCreateRequest request) {
+    public static Address toAddress(AddressCreateRequest request) {
         Address address = new Address();
         address.setStreet(request.getStreet());
         address.setCity(request.getCity());

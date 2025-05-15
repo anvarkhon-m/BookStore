@@ -1,6 +1,7 @@
 package org.example.booksrote.mapper;
 
 import org.example.booksrote.dto.BookCreateRequest;
+import org.example.booksrote.dto.BookNestedResponse;
 import org.example.booksrote.dto.BookResponse;
 import org.example.booksrote.entity.Author;
 import org.example.booksrote.entity.Book;
@@ -12,20 +13,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BookMapper {
-    private static BookMapper instance;
-    private final AuthorMapper authorMapper = AuthorMapper.getInstance();
-    private final PublisherMaker publisherMaker = PublisherMaker.getInstance();
-
     private BookMapper() {}
 
-    public static BookMapper getInstance() {
-        if (instance == null) {
-            instance = new BookMapper();
-        }
-        return instance;
-    }
-
-    public Book toBook(BookCreateRequest request) {
+    public static Book toBook(BookCreateRequest request) {
         Book book = new Book();
         book.setName(request.getName());
         book.setIsbn(IsbnGenerator.generateIsbn());
@@ -47,19 +37,28 @@ public class BookMapper {
         return book;
     }
 
-    public BookResponse fromBook(Book book) {
+    public static BookResponse getBookResponse(Book book) {
         BookResponse bookResponse = new BookResponse();
         bookResponse.setId(book.getId());
         bookResponse.setIsbn(book.getIsbn());
         bookResponse.setName(book.getName());
         bookResponse.setPublishDate(book.getPublishDate());
 
-        bookResponse.setAuthors(book.getAuthors().stream().map(author -> {
-            return authorMapper.fromAuthor(author);
-        }).collect(Collectors.toSet()));
+        bookResponse.setAuthors(book.getAuthors().stream().map(AuthorMapper::getAuthorNestedResponse)
+                .collect(Collectors.toSet()));
 
-        bookResponse.setPublisher(publisherMaker.fromPublisher(book.getPublisher()));
+        bookResponse.setPublisher(PublisherMaker.getPublisherNestedResponse(book.getPublisher()));
 
         return bookResponse;
+    }
+
+    public static BookNestedResponse getBookNestedResponse(Book book) {
+        BookNestedResponse response = new BookNestedResponse();
+        response.setId(book.getId());
+        response.setIsbn(book.getIsbn());
+        response.setName(book.getName());
+        response.setPublishDate(book.getPublishDate());
+
+        return response;
     }
 }

@@ -6,11 +6,9 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Data
-public class BookResponse {
+public class BookNestedResponse {
     private Long id;
     private Long isbn;
     private String name;
     private LocalDate publishDate;
-    private Set<AuthorNestedResponse> authors;
-    private PublisherNestedResponse publisher;
 }

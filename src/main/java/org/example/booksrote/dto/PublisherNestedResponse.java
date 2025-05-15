@@ -5,13 +5,11 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class PublisherResponse {
+public class PublisherNestedResponse {
     private Long id;
     private String name;
     private String contactEmail;
     private String phoneNumber;
     private String website;
     private Integer establishedYear;
-    private AddressResponse address;
-    private Set<BookNestedResponse> books;
 }
