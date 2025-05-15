@@ -3,11 +3,10 @@ package org.example.booksrote.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
 import java.time.LocalDate;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true, exclude = "authors")
+@EqualsAndHashCode(callSuper = true, exclude = {"authors", "publishers"})
 @Entity
 @Table(name = "book")
 @Data
@@ -21,4 +20,8 @@ public class Book extends BaseEntity{
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
 }

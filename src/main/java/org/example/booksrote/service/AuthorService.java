@@ -5,9 +5,9 @@ import org.example.booksrote.dto.AddressResponse;
 import org.example.booksrote.dto.AuthorCreateRequest;
 import org.example.booksrote.dto.AuthorResponse;
 import org.example.booksrote.dto.BookResponse;
-import org.example.booksrote.entity.Address;
 import org.example.booksrote.entity.Author;
 import org.example.booksrote.entity.Book;
+import org.example.booksrote.mapper.AuthorMapper;
 import org.example.booksrote.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +19,10 @@ import java.util.stream.Collectors;
 public class AuthorService {
     private final AuthorRepository repository;
     private final AddressService addressService;
+    private final AuthorMapper authorMapper = AuthorMapper.getInstance();
 
     public void create(AuthorCreateRequest request) {
-        Address address = addressService.create(request.getAddress());
-
-        Author author = new Author();
-        author.setName(request.getName());
-        author.setAddress(address);
-
+        Author author = authorMapper.toAuthor(request);
         repository.save(author);
     }
 

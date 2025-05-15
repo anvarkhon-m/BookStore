@@ -10,11 +10,10 @@ import java.util.Set;
 
 @Data
 public class BookCreateRequest {
-    @NotNull
-    private Long isbn;
     @NotBlank
     private String name;
     @NotNull
     private LocalDate publishDate;
     private Set<Long> authors;
+    private Long publisher;
 }

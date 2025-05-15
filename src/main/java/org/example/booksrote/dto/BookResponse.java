@@ -12,4 +12,5 @@ public class BookResponse {
     private String name;
     private LocalDate publishDate;
     private Set<AuthorResponse> authors;
+    private PublisherResponse publisher;
 }
